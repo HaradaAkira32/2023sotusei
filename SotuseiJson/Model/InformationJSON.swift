@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-struct InfoJSON: Codable {
-    var userData: [UserDatum]
+struct UserData: Codable {
+    var userData: [InfoJSON]
 
     enum CodingKeys: String, CodingKey {
         case userData = "user_data"
@@ -17,40 +17,65 @@ struct InfoJSON: Codable {
 }
 
 // MARK: - UserDatum
-struct UserDatum: Codable {
-    let id: Int
+struct InfoJSON: Codable {
+    let id : Int
+    let title : String
     let haikei : String
     let kankyou : String
+    let os : String
+    let language : String
+    let server : String
+    let appFramework: String
+    let dbFramework : String?
     let point : String
-    let idea: String
-    let notFunction: String
-    let site : String
-    let movie: String
-//    let images : String
-
+    let idea : String
+    let notFunction : String
+    let site : String?
+    let movie : String?
+    let images : [Photos]
+    
     enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case haikei = "haikei"
-        case kankyou = "kankyou"
-        case point = "point"
-        case idea = "idea"
-        case notFunction = "not_function"
-        case site = "site"
-        case movie = "movie"
-//        case images = "images"
+                case id, title, haikei, kankyou
+                case os = "OS"
+                case language, server
+                case appFramework = "app_Framework"
+                case dbFramework = "db_Framework"
+                case point, idea
+                case notFunction = "not_function"
+                case site, movie, images
     }
 }
 
-struct Infos: Codable {
+struct Photos : Codable {
+    let imagepath : String
+    
+    enum Codingkeys: String, CodingKey {
+        case imagepath
+    }
+}
+
+struct Infos: Decodable {
     let infos:[InfoJSON]
 }
 
-struct InfoData : Identifiable {
+struct Info : Identifiable {
     let id: Int
+    ///アプリタイトル
+    let title : String
     ///開発背景
     let developmentBG: String
     ///開発環境
     let developmentEV: String
+    ///スマホos
+    let appOs: String
+    ///開発言語
+    let language : String
+    ///使用サーバー
+    let server : String
+    ///アプリ側利用フレームワーク
+    let appFrameWork : String
+    ///データベース側フレームワーク
+    let dbFrameWork : String
     ///作品のポイント
     let opusPoint: String
     ///作品のアイデア
@@ -62,18 +87,33 @@ struct InfoData : Identifiable {
     ///動画のURL
     let movie: String
     ///アプリ内の画面
-//    let images: UIImage
+    let images: [UIImage]
 }
 
-
-
-
-//let id = userData.id
-//                                let haikei = userData.haikei
-//                                let kankyou = userData.kankyou
-//                                let point = userData.point
-//                                let idea = userData.idea
-//                                let notFunciton = userData.idea
-//                                let site = userData.site
-//                                let movie = String(userData.movie)
-//                                let images = self.getImage(urlString: userData.images)
+//    "user_data": [
+//        {
+//            "id": 1,
+//            "title": "テスト",
+//            "haikei": "テスト",
+//            "kankyou": "テスト",
+//            "point": "テスト",
+//            "idea": "テスト",
+//            "not_function": "テスト",
+//            "site": "https://www.jec.ac.jp/",
+//            "movie": "https://www.youtube.com/watch?v=0Y2a4Oxew8E",
+//            "images": "http://21cm0149.main.jp/sotuseiapp/gamen/test.png"
+//        },
+//        {
+//            "id": 1,
+//            "title": "テスト",
+//            "haikei": "テスト",
+//            "kankyou": "テスト",
+//            "point": "テスト",
+//            "idea": "テスト",
+//            "not_function": "テスト",
+//            "site": "https://www.jec.ac.jp/",
+//            "movie": "https://www.youtube.com/watch?v=0Y2a4Oxew8E",
+//            "images": "http://21cm0149.main.jp/sotuseiapp/gamen/test2.png"
+//        }
+//    ]
+//}

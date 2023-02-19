@@ -7,14 +7,23 @@
 
 import SwiftUI
 
-struct layoutView: View {
+struct LayoutView: View {
+    var title: String?
+    
+    let width = UIScreen.main.bounds.width
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text(title ?? "取得できませんでした")
+                .padding(10)
+                .frame(width: width * 0.8)
+                .background(Color.gray.opacity(0.5))
+                .cornerRadius(15)
+        }
     }
 }
-
 struct layoutView_Previews: PreviewProvider {
     static var previews: some View {
-        layoutView()
+        LayoutView(title: "sample")
     }
 }

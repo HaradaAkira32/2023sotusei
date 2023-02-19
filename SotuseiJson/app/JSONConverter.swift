@@ -16,6 +16,10 @@ class JSONConverter {
         url = URL(string: urlString)!
     }
     
+    init(url: URL) {
+        self.url = url
+    }
+    
     func resume(handler: @escaping (Data?, URLResponse?, Error?) -> ()){
         let request = URLRequest(url: url)
         

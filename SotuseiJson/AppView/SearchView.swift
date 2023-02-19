@@ -8,13 +8,34 @@
 import SwiftUI
 
 struct SearchView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    ///true: 文化祭　false:卒業制作
+    @State var selectEvent : Int = 0
+    
+    @State var searchText: String = ""
+    
+    @ObservedObject var viewModel: ContentViewModel
+    
+    var year : String
+    
+    var body: some View{
+        ZStack{
+            
+            VStack{
+                // ハンバーガと検索窓
+                MainView(viewModel: viewModel)
+                // タグ
+                TagView(viewModel: viewModel)
+                // イベント（すべて、文化祭、卒制）
+                EventButtonView(selectEvent: $selectEvent, viewModel: viewModel,year: year)
+                    .padding(.bottom, 10)
+                
+            }
+            
+        }.background(Color("ceramic").edgesIgnoringSafeArea(.all))
     }
 }
-
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
-    }
-}
+//struct SearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchView()
+//    }
+//}

@@ -8,13 +8,50 @@
 import SwiftUI
 
 struct TagView: View {
+    
+    @ObservedObject var viewModel: ContentViewModel
+    var tags = ["iOS", "Android","Iot","AR","firebase","Bluetooth"]
+    
+//    var selectTag : Stringc
+    
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView([.horizontal],showsIndicators: false){
+            HStack{
+                Spacer()
+//                ForEach(0..<self.tags.count) { tag in
+//                    Button(action: {
+//                        print(tags[tag])
+//                    }){
+//                        Text(tags[tag])
+//                            .frame(width: 80,height: 40)
+//                            .background(Color("slate"))
+//                            .foregroundColor(.white)
+//                            .cornerRadius(20)
+//                    }
+//                }
+                
+                ForEach (Array(tags.enumerated()), id: \.offset) { index, tag in
+                    Button(action: {
+                        viewModel.repackApps(in: tag)
+                        print(tag)
+                    }){
+                        Text(tag)
+                            .frame(width: 80,height: 40)
+                            .background(Color("slate"))
+                            .foregroundColor(.white)
+                            .cornerRadius(20)
+                    }
+                }
+                Spacer()
+            }
+        }
     }
 }
 
-struct TagView_Previews: PreviewProvider {
-    static var previews: some View {
-        TagView()
-    }
-}
+//struct TagView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TagView()
+//    }
+//}
