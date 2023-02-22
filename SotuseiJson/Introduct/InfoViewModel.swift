@@ -13,6 +13,7 @@ class InfoViewModel : ObservableObject{
     
     @Published var infoData: Info?
     @Published var AppImage = [UIImage]()
+    
     let AppID : Int
     
     
@@ -62,8 +63,9 @@ class InfoViewModel : ObservableObject{
                 for userData in appinfo.userData {
                     var siteTmp = "記載しません"
                     var movieTmp = "記載しません"
-                    
+                    var notfunctiontmp = "記載しません"
                     var dbFrameTmp = "記載しません"
+                    var appFrameTmp = "記載しません"
                     
                     if let site = userData.site {
                         siteTmp = site
@@ -74,6 +76,13 @@ class InfoViewModel : ObservableObject{
                     if let dbFrameWork = userData.dbFramework{
                         dbFrameTmp = dbFrameWork
                     }
+                    if let appFrameWork = userData.appFramework{
+                        appFrameTmp = appFrameWork
+                    }
+                    if let notfunction = userData.notFunction {
+                        notfunctiontmp = notfunction
+                    }
+                    
                     
                     let info = Info(id: userData.id,
                                     title: userData.title,
@@ -82,11 +91,10 @@ class InfoViewModel : ObservableObject{
                                     appOs: userData.os,
                                     language: userData.language,
                                     server: userData.server,
-                                    appFrameWork: userData.appFramework,
+                                    appFrameWork: appFrameTmp,
                                     dbFrameWork: dbFrameTmp,
                                     opusPoint: userData.point,
-                                    idea: userData.idea,
-                                    notFunction: userData.notFunction,
+                                    notFunction: notfunctiontmp,
                                     site: siteTmp,
                                     movie: movieTmp ,
                                     images: self.AppImage)

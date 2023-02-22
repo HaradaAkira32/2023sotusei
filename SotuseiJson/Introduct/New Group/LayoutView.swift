@@ -11,12 +11,11 @@ struct LayoutView: View {
     var title: String?
     
     let width = UIScreen.main.bounds.width
-    
     var body: some View {
         VStack{
             Text(title ?? "取得できませんでした")
                 .padding(10)
-                .frame(width: width * 0.8)
+                .frame(width: width * 0.8,height: 50)
                 .background(Color.gray.opacity(0.5))
                 .cornerRadius(15)
         }

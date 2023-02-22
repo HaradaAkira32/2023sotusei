@@ -11,51 +11,116 @@ struct AppCardView2: View {
     @State var isShowing = false
     let app: AppData
     
-    let width = UIScreen.main.bounds.width
+//    let width = UIScreen.main.bounds.width
+    
+    let screenWidth = UIScreen.main.bounds.width
+    
+    var width:CGFloat {
+        let device = UIDevice.current.userInterfaceIdiom
+        if device == .phone {
+            return UIScreen.main.bounds.width * 0.9
+        } else if device == .pad {
+            return UIScreen.main.bounds.width * 0.9
+        } else {
+            return UIScreen.main.bounds.width
+        }
+        
+    }
     
     var body: some View {
+       
         ZStack {
             // 背景の白いカード
-            Rectangle()
-                .frame(width: width * 0.95, height: 180)
-                .cornerRadius(10.0)
-                .foregroundColor(.white)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(Color.black, lineWidth: 2)
-                )
-                .cornerRadius(30)
-            
-            HStack {
-                Image(uiImage:app.icon)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 120, height: 120)
-                    .cornerRadius(20.0)
-                    .foregroundColor(Color(uiColor: .systemMint))
-                Spacer()
-                    .frame(width: 160)
-            }
-            
-            // アプリ名、名前
+//            Rectangle()
+//                .frame(width: width * 0.95, height: 180)
+//                .foregroundColor(Color("appCardBackColor"))
+//                .cornerRadius(10.0)
+//                .overlay(
+//                    RoundedRectangle(cornerRadius: 30)
+//                        .stroke(Color.gray, lineWidth: 0.5)
+//                )
+//                .cornerRadius(30)
+//
             HStack {
                 Spacer()
-                    .frame(width: 80)
+                    .frame(width: screenWidth / 10)
+                
+                //アイコン画像
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    Image(uiImage:app.icon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: width / 3, height: width / 3)
+                        .cornerRadius(20.0)
+                        .foregroundColor(Color(uiColor: .systemMint))
+                } else if UIDevice.current.userInterfaceIdiom == .pad {
+                    Image(uiImage:app.icon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: width / 5.5, height: width / 5.5)
+                        .cornerRadius(20.0)
+                        .foregroundColor(Color(uiColor: .systemMint))
+                }
+                
+                
+                
+                Spacer()
+                
+                
+                // アプリ名、学生情報
                 VStack {
                     
                     // FIXME: この辺は、長さによって大きさを変えたいねぇ…
                     Text(app.title)
-                        .font(.title3)
-                        .padding(.bottom)
+                        .foregroundColor(.gray)
+                        .font(.system(size: width / 14))
+                        .frame(width: width / 2, alignment: .leading)
+                    
                     Text(app.studentID)
-                        .font(.caption)
-//                    Text(app.studentName)
-//                        .font(.caption)
+                        .foregroundColor(Color(.lightGray))
+                        .font(.system(size: width / 28))
+                        .frame(width: width / 2, alignment: .leading)
+                        
+                    
+                    //タグ
+                    
+                    ScrollView(.horizontal,showsIndicators: false){
+                        HStack{
+                            ForEach(app.tags ?? [""], id:\.self) { tag in
+                                Text(tag)
+                                    .padding(5)
+                                    .font(.system(size: width / 35))
+//                                    .frame(width: width / 17)
+                                
+                                    .foregroundColor(.white)
+                                    .background(Color("ceramic"))
+                                    .cornerRadius(5)
+                                
+                            }
+                        }
+                    }
+                    .frame(width: width / 2, alignment: .leading)
+                    
                 }
+                .frame(width: width / 2, alignment: .leading)
+                
+                Spacer()
                 // ボタンでこのView使うと色変になるから防止のために色を指定する
-                .foregroundColor(.black)
-            }
+                    .foregroundColor(.black)
+            }// HStack
+            //カードの背景
+            .padding()
+            .frame(width: width, height: 180)
+            //                .cornerRadius(10.0)
+            .background(Color("appCardBackColor"))
+//            .overlay(
+//                RoundedRectangle(cornerRadius: 25)
+//                    .stroke(Color.gray, lineWidth: 0.5)
+//            )
+                .cornerRadius(20)
         }
+        
+        
         .onTapGesture {
             isShowing.toggle()
         }
@@ -64,65 +129,3 @@ struct AppCardView2: View {
         }
     }
 }
-
-struct AppCardView: View {
-    let appIcon: UIImage
-    let title: String
-    let studentID: String
-    let studentName: String
-    
-    var body: some View {
-        
-        ZStack {
-            // 背景の白いカード
-            Rectangle()
-                .frame(width: 365, height: 180)
-                .cornerRadius(10.0)
-                .foregroundColor(.white)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(Color.black, lineWidth: 2)
-                )
-                .cornerRadius(30)
-            
-            HStack {
-                //                アプリのアイコン。ここは画像をどういう扱いするかで変わる。
-                Image(uiImage:appIcon)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 120, height: 120)
-                    .cornerRadius(20.0)
-                
-                    .foregroundColor(Color(uiColor: .systemMint))
-                Spacer()
-                    .frame(width: 160)
-            }
-            
-            // アプリ名、名前
-            HStack {
-                Spacer()
-                    .frame(width: 80)
-                VStack {
-                    
-                    // FIXME: この辺は、長さによって大きさを変えたいねぇ…
-                    Text(title)
-                        .font(.title3)
-                        .padding(.bottom)
-                    Text(studentID)
-                        .font(.caption)
-                    Text(studentName)
-                        .font(.caption)
-                }
-                // ボタンでこのView使うと色変になるから防止のために色を指定する
-                .foregroundColor(.black)
-            }
-        }
-    }
-}
-
-
-//struct AppCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AppCardView(appIcon: UIImage(named: "image")!, title: "demo", studentID: "21cm0100", studentName: "山田太郎")
-//    }
-//}

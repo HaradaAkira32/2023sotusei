@@ -37,6 +37,7 @@ class ContentViewModel : ObservableObject {
         print(components.url ?? "")
         // app一覧が入っている配列を空に
         self.apps.removeAll()
+        self.defaultApps.removeAll()
         
         let jsonConverter = JSONConverter(url: components.url!)
         jsonConverter.resume() { data, response, error in
@@ -104,7 +105,7 @@ class ContentViewModel : ObservableObject {
     }
     
     ///  タグで並び替えるやつ
-    func repackApps(in selectTag : String) {//🎈
+    func repackApps(in selectTag : String) {
         print("repackApps呼ばれた")
         // 別の配列にタグが一致するものを避難させる
         var repackArray = [AppData]()

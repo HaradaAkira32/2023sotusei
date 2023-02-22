@@ -39,7 +39,7 @@ struct TagView: View {
                     }){
                         Text(tag)
                             .frame(width: 80,height: 40)
-                            .background(Color("slate"))
+                            .background(Color("tagcolor"))
                             .foregroundColor(.white)
                             .cornerRadius(20)
                     }

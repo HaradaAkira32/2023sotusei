@@ -24,7 +24,7 @@ struct EventButtonView: View {
     
     //選択された時の色
     let selectColor = Color("coffee")
-//    Color.orange.opacity(0.5)
+    //    Color.orange.opacity(0.5)
     //選択されてない時の色
     let unselectColor = Color("latte")
     
@@ -33,6 +33,7 @@ struct EventButtonView: View {
             Spacer()
             Button(action : {
                 viewModel.getData(year: year, event: nil)
+                selectEvent = 0
             }){
                 Text("すべて")
                     .frame(width: width / 4)
@@ -44,6 +45,7 @@ struct EventButtonView: View {
             Spacer()
             Button(action : {
                 viewModel.getData(year: year, event: 1)
+                selectEvent = 1
             }){
                 Text("文化祭")
                     .frame(width: width / 4)
@@ -52,11 +54,10 @@ struct EventButtonView: View {
                     .foregroundColor(.white)
                     .cornerRadius(15)
             }
-            
-            
             Spacer()
             Button(action : {
                 viewModel.getData(year: year, event: 2)
+                selectEvent = 2
             }){
                 Text("卒業制作")
                     .frame(width: width / 4)
@@ -65,11 +66,11 @@ struct EventButtonView: View {
                     .foregroundColor(.white)
                     .cornerRadius(15)
             }
-            
             Spacer()
         }
     }
 }
+
 //struct EventBtn_Previews: PreviewProvider {
 //    @State static var a = 0
 //    static var previews: some View {

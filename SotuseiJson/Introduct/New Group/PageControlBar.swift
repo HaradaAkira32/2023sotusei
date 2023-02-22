@@ -11,9 +11,10 @@ import SwiftUI
 struct PageControlBar: View {
     var count : Int
     @Binding var selected: Int
+    
     var body: some View {
         HStack {
-            ForEach(0 ..< count) { num in
+            ForEach(0 ..< count, id: \.self) { num in
                 Circle()
                     .frame(width: 10, height: 10)
                     .foregroundColor(num == selected ? .white : .black)

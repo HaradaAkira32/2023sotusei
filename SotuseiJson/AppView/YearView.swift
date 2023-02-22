@@ -19,10 +19,21 @@ struct YearView: View {
     
     let years = ["2021","2022","2023","2024","2025"]
     
-    let width = UIScreen.main.bounds.width
+    var width:CGFloat {
+        let device = UIDevice.current.userInterfaceIdiom
+        if device == .phone {
+            return UIScreen.main.bounds.width * 0.8
+        } else if device == .pad {
+            return UIScreen.main.bounds.width * 0.6
+        } else {
+            return UIScreen.main.bounds.width
+        }
+        
+    }
     
     
     var body: some View {
+        
         
         VStack {
             
@@ -52,11 +63,11 @@ struct YearView: View {
         
     }
 }
-//struct FullScreenView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        YearView()
-//    }
-//}
+struct FullScreenView_Previews: PreviewProvider {
+    static var previews: some View {
+        YearView()
+    }
+}
 
 struct ListCell: View {
     var text: String

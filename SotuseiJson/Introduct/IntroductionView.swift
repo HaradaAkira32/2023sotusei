@@ -38,11 +38,14 @@ struct IntroductionView: View {
                         Button{
                             dismiss()
                         }label: {
-                            Image(systemName: "chevron.backward")
+                            Image(systemName: "xmark")
+                                .resizable()
+                                .frame(width: 20, height: 20)
                                 .padding(.horizontal, 8)
                         }
                         LayoutView(title: viewModel.infoData?.title)
-                    }
+                            .padding(10)
+                    }.padding()
                     
                     // ImageSliderViewが押されたら、Sheetで大きくImageSlideViewを表示する
                     Button{
@@ -61,14 +64,16 @@ struct IntroductionView: View {
                     
                     ScrollView {
                         if selectionText == 0{
-                            TextView(os: viewModel.infoData?.appOs ?? "",
-                                     language: viewModel.infoData?.language ?? "",
-                                     developmentChance: viewModel.infoData?.developmentBG ?? "",
-                                     appPoint: viewModel.infoData?.opusPoint ?? "")
+                            TextView(os: viewModel.infoData?.appOs ?? "記載しません",
+                                     language: viewModel.infoData?.language ?? "記載しません",
+                                     developmentChance: viewModel.infoData?.developmentBG ?? "記載しません",
+                                     appPoint: viewModel.infoData?.opusPoint ?? "記載しません",
+                                     software: viewModel.infoData?.developmentEV ?? "",
+                                     server: viewModel.infoData?.server ?? "使用していません")
                         }else if selectionText == 1{
-                            UserText(idea: viewModel.infoData?.idea ?? "",
-                                     notFunction: viewModel.infoData?.notFunction ?? "",
-                                     site: viewModel.infoData?.site ?? "")
+                            UserText(notFunction: viewModel.infoData?.notFunction ?? "記載しません",
+                                     site: viewModel.infoData?.site ?? "記載しません",
+                                     movie: viewModel.infoData?.movie ?? "記載しません")
                         }
                     }
                     .frame(width: width)

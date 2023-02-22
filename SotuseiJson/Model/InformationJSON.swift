@@ -25,11 +25,10 @@ struct InfoJSON: Codable {
     let os : String
     let language : String
     let server : String
-    let appFramework: String
+    let appFramework: String?   
     let dbFramework : String?
     let point : String
-    let idea : String
-    let notFunction : String
+    let notFunction : String?
     let site : String?
     let movie : String?
     let images : [Photos]
@@ -40,7 +39,7 @@ struct InfoJSON: Codable {
                 case language, server
                 case appFramework = "app_Framework"
                 case dbFramework = "db_Framework"
-                case point, idea
+                case point
                 case notFunction = "not_function"
                 case site, movie, images
     }
@@ -78,8 +77,6 @@ struct Info : Identifiable {
     let dbFrameWork : String
     ///作品のポイント
     let opusPoint: String
-    ///作品のアイデア
-    let idea : String
     ///未実装の機能
     let notFunction: String
     ///載せたいサイト
@@ -90,30 +87,3 @@ struct Info : Identifiable {
     let images: [UIImage]
 }
 
-//    "user_data": [
-//        {
-//            "id": 1,
-//            "title": "テスト",
-//            "haikei": "テスト",
-//            "kankyou": "テスト",
-//            "point": "テスト",
-//            "idea": "テスト",
-//            "not_function": "テスト",
-//            "site": "https://www.jec.ac.jp/",
-//            "movie": "https://www.youtube.com/watch?v=0Y2a4Oxew8E",
-//            "images": "http://21cm0149.main.jp/sotuseiapp/gamen/test.png"
-//        },
-//        {
-//            "id": 1,
-//            "title": "テスト",
-//            "haikei": "テスト",
-//            "kankyou": "テスト",
-//            "point": "テスト",
-//            "idea": "テスト",
-//            "not_function": "テスト",
-//            "site": "https://www.jec.ac.jp/",
-//            "movie": "https://www.youtube.com/watch?v=0Y2a4Oxew8E",
-//            "images": "http://21cm0149.main.jp/sotuseiapp/gamen/test2.png"
-//        }
-//    ]
-//}
