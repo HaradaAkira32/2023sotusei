@@ -11,7 +11,7 @@ import SwiftUI
 //appテーブル
 struct AppJSON : Codable, Identifiable {
     let id: Int
-    let studentName: String?
+    let studentName:[String]
     let title: String
     let icon: String?
     let year: String
@@ -42,7 +42,8 @@ struct AppData: Identifiable {
     let tags: [String]?
     let studentID: String
     let eventID: Int
-    let studentName: String
+    let studentName: [String]
+    var isFavorite : Bool
 }
 
 

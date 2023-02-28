@@ -11,11 +11,18 @@ struct YearView: View {
     
     @StateObject var viewModel = ContentViewModel()
     
+    @ObservedObject var yearViewModel = YearViewModel()
+    
     @State private var showYear = false
+    
+    @State private var showFavori = false
     
     @State var selectYear : String = ""
     
     @State var selctTag : String = ""
+    
+
+    
     
     let years = ["2021","2022","2023","2024","2025"]
     
@@ -36,7 +43,6 @@ struct YearView: View {
         
         
         VStack {
-            
             Text("どの年度の作品を見ますか？")
                 .font(.title2)
             
@@ -57,7 +63,26 @@ struct YearView: View {
                     //メイン画面に飛ぶ
                     ContentView(viewModel: viewModel, year: selectYear)
                 }
+            }
+            
+            Button{
+                showFavori.toggle()
+                viewModel.getFavoriteApps(ids: yearViewModel.parseIds(ids: Defaults().load()))
+            }label: {
+                Text("お気に入りアプリ")
+                    .frame(width: width,height: 50)
+                    
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                          
+                            .stroke(Color("ceramic"), lineWidth: 4)
+                           
+                    )
+                    .padding(.top)
                 
+            }.fullScreenCover(isPresented: $showFavori) {
+                //メイン画面に飛ぶ
+                FavoriteView(viewModel: viewModel,isEmpty: yearViewModel.isCheckEmpty())
             }
         }
         

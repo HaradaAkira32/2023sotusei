@@ -21,11 +21,11 @@ struct MainView: View {
             Button{
                 self.showingSheet.toggle()
             } label: {
-                Image(systemName: "line.horizontal.3")
+                Image(systemName: "calendar")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: menuSize, height: menuSize)
-                    .padding(.leading, menuSize / 2)
+                    .padding(.leading, menuSize / 1)
                     .foregroundColor(Color("coffee"))
                 
             }.sheet(isPresented: $showingSheet){

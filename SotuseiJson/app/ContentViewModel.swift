@@ -14,8 +14,14 @@ class ContentViewModel : ObservableObject {
     //データある場合:ture データのない場合:false
     @Published var isGetData = false
     
-    //    @Published var uiImage : UIImage = UIImage(named: "image")!
+    @Published var appIDs : [Int] = []
+    
     @Published var apps = [AppData]()
+    @Published var favoriteApp = [AppData]()
+    
+    var defaultsID = Defaults().load()
+    
+    var defaults = Defaults()
     
     var defaultApps = [AppData]()
     
@@ -50,23 +56,60 @@ class ContentViewModel : ObservableObject {
             
             
             do {
+                
                 let decoder = JSONDecoder()
                 let applications = try decoder.decode(Apps.self, from: data)
                 print("パースできました")
                 print(applications)
-                
-                for app in applications {
-                    let appData = AppData(id: app.id,
-                                          title: app.title,
-                                          icon: self.getImage(urlString: app.icon ?? ""),
-                                          year: app.year,
-                                          tags: app.tags,
-                                          studentID: app.studentID,
-                                          eventID: app.eventID,
-                                          studentName: app.studentName ?? "")
-                    DispatchQueue.main.async {
-                        self.apps.append(appData)
-                        self.defaultApps.append(appData)
+                if self.defaultsID == [] {
+                    
+                    for app in applications {
+                        let appData = AppData(id: app.id,
+                                              title: app.title,
+                                              icon: self.getImage(urlString: app.icon ?? ""),
+                                              year: app.year,
+                                              tags: app.tags,
+                                              studentID: app.studentID,
+                                              eventID: app.eventID,
+                                              studentName: app.studentName,
+                                              isFavorite: false)
+                        
+                        DispatchQueue.main.async {
+                            self.apps.append(appData)
+                            self.defaultApps.append(appData)
+                        }
+                    }
+                } else {
+                    
+                    for app in applications {
+                        var isFavorite = false
+                        
+                        for defaultid in self.defaultsID {
+                            if defaultid == app.id{
+                                isFavorite = true
+                                break
+                            }else{
+                                isFavorite = false
+                                
+                            }
+                        }
+                        let appData = AppData(id: app.id,
+                                              title: app.title,
+                                              icon: self.getImage(urlString: app.icon ?? ""),
+                                              year: app.year,
+                                              tags: app.tags,
+                                              studentID: app.studentID,
+                                              eventID: app.eventID,
+                                              studentName: app.studentName,
+                                              isFavorite: isFavorite)
+                        
+                        
+                        
+                        DispatchQueue.main.async {
+                            self.apps.append(appData)
+                            self.defaultApps.append(appData)
+                        }
+                        
                     }
                 }
                 
@@ -75,12 +118,14 @@ class ContentViewModel : ObservableObject {
                     self.isLoading = false
                 }
                 
+                
             }catch let err{
-                print(err)
-                self.isLoading = false
-                self.isGetData = false
+                DispatchQueue.main.async {
+                    print(err)
+                    self.isLoading = false
+                    self.isGetData = false
+                }
             }
-            
         }
     }
     
@@ -103,6 +148,77 @@ class ContentViewModel : ObservableObject {
         }
         return uiImage
     }
+    
+    func getFavoriteApps(ids: String) {
+        // Loadフラグをtrue
+        isLoading = true
+        let baseURL = "https://21cm0149.main.jp/sotuseiapp/php/app_fav_json.php"
+        guard let url = URL(string: baseURL) else { return }
+        
+        // URLにパラメータ追加
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        components.queryItems = [URLQueryItem(name: "id", value: ids)]
+        // URL確認
+        print(components.url ?? "")
+        // app一覧が入っている配列を空に
+        self.favoriteApp.removeAll()
+        
+        let jsonConverter = JSONConverter(url: components.url!)
+        jsonConverter.resume() { data, response, error in
+            guard let data = data else { // data is not nil
+                print("データがありません")
+                self.isLoading = false // Loadフラグをfalse
+                self.isGetData = false // getDataできなかった
+                return
+            }
+            
+            
+            do {
+                let decoder = JSONDecoder()
+                let applications = try decoder.decode(Apps.self, from: data)
+                var isFavoriteID = false
+                print("パースできました")
+                print(applications)
+                
+                for app in applications {
+                    for defaultid in self.defaultsID{
+                        if defaultid == app.id{
+                            isFavoriteID = true
+                            break
+                        }else{
+                            isFavoriteID = false
+                        }
+                    }
+                    
+                        let appData = AppData(id: app.id,
+                                              title: app.title,
+                                              icon: self.getImage(urlString: app.icon ?? ""),
+                                              year: app.year,
+                                              tags: app.tags,
+                                              studentID: app.studentID,
+                                              eventID: app.eventID,
+                                              studentName: app.studentName,
+                                              isFavorite: isFavoriteID)
+                        DispatchQueue.main.async {
+                            self.favoriteApp.append(appData)
+                        }
+                }
+                DispatchQueue.main.async {
+                    self.isGetData = true
+                    self.isLoading = false
+                }
+                
+            }catch let err{
+                DispatchQueue.main.async {
+                    print(err)
+                    self.isLoading = false
+                    self.isGetData = false
+                }
+            }
+        }
+    }
+    
+    
     
     ///  タグで並び替えるやつ
     func repackApps(in selectTag : String) {
@@ -142,9 +258,24 @@ class ContentViewModel : ObservableObject {
         }
         apps.removeAll()
         if !repackArray.isEmpty {
-//            apps.removeAll()
+            //            apps.removeAll()
             apps = repackArray
         }
     }
+    func seve(id: Int) {
+        defaults.seve(id: id)
+    }
+    func delete(id: Int){
+        defaults.delete(id: id)
+    }
+    func parseIds(ids: [Int]) -> String {
+        var parameter = ""
+        //        var ids = defaults.load()
+        for id in ids{
+            parameter += String(id)
+            parameter += ","
+        }
+        parameter.removeLast()
+        return parameter
+    }
 }
-

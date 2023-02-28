@@ -10,9 +10,10 @@ import UIKit
 
 struct ContentView: View {
     @ObservedObject var viewModel: ContentViewModel
-    @State var isShowing = false
+//    @State var isShowing = false
     @Environment(\.dismiss) private var dismiss
     var year: String
+    
     init(viewModel: ContentViewModel, year: String) {
         self.viewModel = viewModel
         self.year = year
@@ -43,7 +44,7 @@ struct ContentView: View {
                         // アプリ一覧を表示するView
                         ScrollView{
                             ForEach(viewModel.apps){ appli in
-                                AppCardView2(app: appli)
+                                AppCardView2(viewModel: viewModel ,app: appli)
                             }
                         }
                     }

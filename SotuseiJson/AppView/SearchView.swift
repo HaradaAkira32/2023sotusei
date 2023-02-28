@@ -19,7 +19,6 @@ struct SearchView: View {
     
     var body: some View{
         ZStack{
-            
             VStack{
                 // ハンバーガと検索窓
                 MainView(viewModel: viewModel)

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7F1AE1A42980F626008AC87B /* JSONConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1AE1A32980F626008AC87B /* JSONConverter.swift */; };
+		7F26360829A8977E007AE771 /* MyDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F26360729A8977E007AE771 /* MyDefaults.swift */; };
+		7F26360A29A8A921007AE771 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F26360929A8A921007AE771 /* FavoriteView.swift */; };
+		7F26360C29A8C532007AE771 /* YearViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F26360B29A8C532007AE771 /* YearViewModel.swift */; };
 		7F2957692994C3F400A906E9 /* TextChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2957682994C3F400A906E9 /* TextChangeView.swift */; };
 		7F3A26CC2999F8B900069041 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3A26CB2999F8B900069041 /* MainView.swift */; };
 		7F3A26CE2999F90900069041 /* YearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3A26CD2999F90900069041 /* YearView.swift */; };
@@ -34,6 +37,9 @@
 /* Begin PBXFileReference section */
 		7F1AE1A32980F626008AC87B /* JSONConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverter.swift; sourceTree = "<group>"; };
 		7F1AE1A5298127AD008AC87B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7F26360729A8977E007AE771 /* MyDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDefaults.swift; sourceTree = "<group>"; };
+		7F26360929A8A921007AE771 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
+		7F26360B29A8C532007AE771 /* YearViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearViewModel.swift; sourceTree = "<group>"; };
 		7F2957682994C3F400A906E9 /* TextChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextChangeView.swift; sourceTree = "<group>"; };
 		7F3A26CB2999F8B900069041 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7F3A26CD2999F90900069041 /* YearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearView.swift; sourceTree = "<group>"; };
@@ -74,6 +80,7 @@
 			children = (
 				7F41E2872988BB21002E844E /* InformationJSON.swift */,
 				7FF59D7A297A1B2100AEB1F6 /* AppJSON.swift */,
+				7F26360729A8977E007AE771 /* MyDefaults.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -93,6 +100,7 @@
 			children = (
 				7F3A26CB2999F8B900069041 /* MainView.swift */,
 				7F3A26CD2999F90900069041 /* YearView.swift */,
+				7F26360B29A8C532007AE771 /* YearViewModel.swift */,
 				7F3A26CF2999F9DD00069041 /* TagView.swift */,
 				7F3A26D32999FA8000069041 /* EventButtonView.swift */,
 				7F3A26D72999FBE800069041 /* SearchView.swift */,
@@ -116,7 +124,9 @@
 		7F7BD6EB298A0342005F4BAA /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				7FE0C9CC29751EC80037B0A9 /* SotuseiJsonApp.swift */,
 				7FE0C9CE29751EC80037B0A9 /* ContentView.swift */,
+				7F26360929A8A921007AE771 /* FavoriteView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -152,7 +162,6 @@
 			children = (
 				7F3A26CA2999F7DF00069041 /* AppView */,
 				7F1AE1A5298127AD008AC87B /* Info.plist */,
-				7FE0C9CC29751EC80037B0A9 /* SotuseiJsonApp.swift */,
 				7F7BD6EB298A0342005F4BAA /* MainView */,
 				7F1AE1C2298259EF008AC87B /* app */,
 				7F85CC942988A3080052A8D4 /* Introduct */,
@@ -253,9 +262,12 @@
 				7F3A26D82999FBE800069041 /* SearchView.swift in Sources */,
 				7F3A26CC2999F8B900069041 /* MainView.swift in Sources */,
 				7FE0C9CD29751EC80037B0A9 /* SotuseiJsonApp.swift in Sources */,
+				7F26360829A8977E007AE771 /* MyDefaults.swift in Sources */,
 				7FF59D79297A1A9900AEB1F6 /* ContentViewModel.swift in Sources */,
 				7F3A26D42999FA8000069041 /* EventButtonView.swift in Sources */,
+				7F26360C29A8C532007AE771 /* YearViewModel.swift in Sources */,
 				7F41E2882988BB21002E844E /* InformationJSON.swift in Sources */,
+				7F26360A29A8A921007AE771 /* FavoriteView.swift in Sources */,
 				7FE8A66F2999DA8E0041352A /* UserText.swift in Sources */,
 				7F85CC962988A3390052A8D4 /* IntroductionView.swift in Sources */,
 				7F1AE1A42980F626008AC87B /* JSONConverter.swift in Sources */,
