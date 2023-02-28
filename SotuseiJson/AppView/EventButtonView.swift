@@ -34,6 +34,7 @@ struct EventButtonView: View {
             Button(action : {
                 viewModel.getData(year: year, event: nil)
                 selectEvent = 0
+                
             }){
                 Text("すべて")
                     .frame(width: width / 4)

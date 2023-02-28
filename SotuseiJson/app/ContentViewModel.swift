@@ -61,8 +61,8 @@ class ContentViewModel : ObservableObject {
                 let applications = try decoder.decode(Apps.self, from: data)
                 print("パースできました")
                 print(applications)
-                if self.defaultsID == [] {
-                    
+                let favorite = self.defaults.load()
+                if favorite == [] {
                     for app in applications {
                         let appData = AppData(id: app.id,
                                               title: app.title,
@@ -84,7 +84,7 @@ class ContentViewModel : ObservableObject {
                     for app in applications {
                         var isFavorite = false
                         
-                        for defaultid in self.defaultsID {
+                        for defaultid in favorite {
                             if defaultid == app.id{
                                 isFavorite = true
                                 break
@@ -114,12 +114,14 @@ class ContentViewModel : ObservableObject {
                 }
                 
                 DispatchQueue.main.async {
+                        print("fuga!")
                     self.isGetData = true
                     self.isLoading = false
                 }
                 
                 
             }catch let err{
+                print("hoge!")
                 DispatchQueue.main.async {
                     print(err)
                     self.isLoading = false
